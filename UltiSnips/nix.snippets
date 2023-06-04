@@ -1,0 +1,45 @@
+global !p
+def libs(ts):
+		non_emptys = ''.join(list(filter(None, t[1])))
+		split_on_n =  [ts.strip() for ts in non_emptys.split('\n\n')]
+		split_on_eq = [i.split('=') for i in split_on_n]
+		return '\n\t\t'.join([i[0].strip() for i in split_on_eq])
+endglobal
+
+snippet default "default.nix file" b
+with import <nixpkgs> {};
+
+let
+	$1
+in mkShell {
+	buildInputs = [
+		`!p
+snip.rv = libs(t[0])
+`
+	];
+}
+endsnippet
+
+pre_expand "snip.buffer[snip.line] = ' '*4; snip.cursor.set(snip.line, 4)"
+snippet pkgs "make a list of packages to install from the main repo" m
+_libs = with pkgs; [
+	$1
+];
+
+endsnippet
+
+pre_expand "snip.buffer[snip.line] = ' '*4; snip.cursor.set(snip.line, 4)"
+snippet rlib "make a list of r packages to install" m
+rlibs = with rPackages; [
+	$1
+];
+
+endsnippet
+
+pre_expand "snip.buffer[snip.line] = ' '*4; snip.cursor.set(snip.line, 4)"
+snippet pylib "make a list of python packages to install" m
+pylibs = with python3${1:11}Packages; [
+	$2
+];
+
+endsnippet
