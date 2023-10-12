@@ -18,6 +18,8 @@ snip.rv = libs(t[0])
 `
 	];
 }
+
+# vim:set et sw=2 ts=2:
 endsnippet
 
 pre_expand "snip.buffer[snip.line] = ' '*4; snip.cursor.set(snip.line, 4)"
@@ -42,4 +44,11 @@ pylibs = with python3${1:11}Packages; [
 	$2
 ];
 
+endsnippet
+
+snippet rshellhook "r lib home"
+shellHook = ''
+  mkdir -p $HOME/.R
+  export R_LIBS_USER=$HOME/.R
+'';
 endsnippet
