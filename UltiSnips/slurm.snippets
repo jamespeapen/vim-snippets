@@ -1,0 +1,16 @@
+priority -50
+
+snippet sbatch "slurm submission" b
+#!/bin/bash
+#SBATCH --job-name=$1
+#SBATCH --time=${2:${VISUAL:01}}:${3:${VISUAL:00}}
+#SBATCH --ntasks=${4:${VISUAL:1}}
+#SBATCH --cpus-per-task=${5:${VISUAL:1}}
+#SBATCH --partition=${6:${VISUAL:quick}}
+
+$0
+endsnippet
+
+snippet sarray "slurm array" b
+#SBATCH --array=${1:${VISUAL:1}}-$2
+endsnippet
